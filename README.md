@@ -23,3 +23,26 @@ It parses both **single-frame** and **multi-frame** (ISO-TP) messages, extracts 
   - Clear separation of concerns: parsing, decoding, response generation, utilities
 
 ---
+## Sample Input (input.txt)
+18DAF110 03 22 F1 90              ; Read DID 0xF190 (VIN)
+18DA10F1 10 14 62 F1 90 57 56     ; First-frame response (20 bytes total)
+18DA10F1 21 5A 5A 5A 31 4B 5A     ; CF #1
+18DA10F1 22 41 57 30 30 30 31     ; CF #2
+18DA10F1 23 32 33                 ; CF #3
+
+## Sample Output
+----------------------------------------
+Parsed CAN Frame:
+> CAN ID        : 18DAF110 Extended
+> DLC           : 03 bytes
+> Data Bytes    : 22 F190
+> UDS Service   : Read DID 0x22
+> Requested DID : F190 -> Vehicle VIN
+----------------------------------------
+
+----------------------------------------
+Parsed CAN Response:
+> Frame Type    : Multi-frame
+> Payload Bytes : 62 F1 90 57 56 5A 5A 5A 31 4B 5A 41 57 30 30 30 31 32 33
+> Decoded ASCII : WVZZZ1KZAW000123
+----------------------------------------

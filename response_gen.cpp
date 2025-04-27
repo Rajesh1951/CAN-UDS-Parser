@@ -15,9 +15,9 @@ string getResponse(vector<uint8_t> data)
 }
 void generateResponse(string data)
 {
-  for (char c : data)
+  for (int i = 0; i < data.size(); i+=2)
   {
-    printf("%02X ", c);
+    cout<<data[i]<<data[i+1]<<' ';
   }
 }
 void printResponse()
@@ -36,7 +36,9 @@ void printCANResponse()
   cout << "----------------------------------------" << '\n';
   cout << "Parsed CAN Response:" << '\n';
   cout << "> Frame type    : " << (isMultiFrame ? "Single" : "Multi") << '\n';
-  cout << "> Payload Bytes : " << canResponse.response << '\n';
+  cout << "> Payload Bytes : ";
+  generateResponse(canResponse.response);
+  cout << '\n';
   cout << "> Decoded ASCII : " << decodeCANResponse(canResponse.response) << '\n';
   cout << "----------------------------------------" << '\n';
 }
